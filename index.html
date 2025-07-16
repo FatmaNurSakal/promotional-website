@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobil Uygulama - Ürün Tanıtımı</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    /* Hero section yüksekliği ve ortalama */
+    .hero {
+      height: 80vh;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* JavaScript tarafından ayarlanacağı için başlangıç background-image kaldırıldı */
+      transition: background-image 1.5s ease-in-out; /* Daha yumuşak geçiş */
+      position: relative; /* İçerik için konumlandırma */
+      overflow: hidden; /* Animasyonlu katman için */
+    }
+
+    /* Hero arka plan filtresi (animasyonlu katman) */
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Hafif koyu bir overlay */
+        transition: background-color 1.5s ease-in-out;
+        z-index: 1; /* İçeriğin arkasında kalması için */
+    }
+
+    .hero .container {
+        position: relative;
+        z-index: 2; /* İçeriğin overlay'in önünde olması için */
+    }
+
+    /* Hero yazı gölge */
+    .hero h1, .hero p {
+      text-shadow: 1px 1px 8px rgba(0,0,0,0.9); /* Daha belirgin gölge */
+    }
+
+    /* Fiyat kartları border radius */
+    #pricing .card {
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #pricing .card:hover {
+      transform: translateY(-5px) scale(1.02); /* Hafif yukarı kalkma ve büyüme */
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Daha belirgin gölge */
+    }
+
+    /* Özellikler icon renk ve animasyon */
+    #features i {
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    #features i:hover {
+      color: #0d6efd;
+      cursor: pointer;
+      transform: scale(1.1); /* Hover'da hafif büyüme */
+    }
+
+    /* Yeni özellik bildirimi animasyonu */
+    #new-feature-notification {
+        background-color: #ffc107; /* Sarı arka plan */
+        color: #343a40; /* Koyu yazı */
+        padding: 10px 20px;
+        border-radius: 50px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        opacity: 0; /* Başlangıçta gizli */
+        transform: translateY(100px); /* Alttan başlama */
+        animation: slideUpFadeIn 1s forwards; /* Animasyon */
+        animation-delay: 2s; /* Sayfa yüklendikten 2 saniye sonra başla */
+    }
+
+    @keyframes slideUpFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive spacing */
+    @media (max-width: 767px) {
+      .hero {
+        height: 60vh;
+      }
+      #new-feature-notification {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero text-white text-center d-flex align-items-center">
+  <div class="container py-5">
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Yeni Mobil Uygulamanızla Tanışın!</h1>
+    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">Hayatınızı kolaylaştıracak, hız kazandıracak yenilikçi çözümler burada.</p>
+    <a href="#features" class="btn btn-light btn-lg me-3 animate__animated animate__zoomIn animate__delay-2s">Özelliklere Göz At</a>
+    <a href="#pricing" class="btn btn-outline-light btn-lg animate__animated animate__zoomIn animate__delay-2s">Fiyat Planları</a>
+  </div>
+</section>
+
+<section id="features" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 animate__animated animate__fadeIn">Özelliklerimiz</h2>
+    <div class="row g-4">
+      <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-0-5s">
+        <i class="bi bi-speedometer2 display-1 text-primary mb-3"></i>
+        <h4>Hızlı Performans</h4>
+        <p>Yüksek hızda çalışan uygulamamız, size kesintisiz deneyim sunar.</p>
+      </div>
+      <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-0-7s">
+        <i class="bi bi-shield-lock display-1 text-primary mb-3"></i>
+        <h4>Güvenlik</h4>
+        <p>Kişisel verileriniz şifrelenir ve güvenle saklanır.</p>
+      </div>
+      <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-0-9s">
+        <i class="bi bi-phone display-1 text-primary mb-3"></i>
+        <h4>Kullanıcı Dostu Arayüz</h4>
+        <p>Her yaştan kullanıcı için kolay ve anlaşılır tasarım.</p>
+      </div>
+        <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-1-1s">
+        <i class="bi bi-cloud-arrow-up display-1 text-primary mb-3"></i>
+        <h4>Bulut Entegrasyonu</h4>
+        <p>Verileriniz her zaman güvenli bulutta yedeklenir.</p>
+      </div>
+      <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-1-3s">
+        <i class="bi bi-graph-up-arrow display-1 text-primary mb-3"></i>
+        <h4>Gelişmiş Analiz</h4>
+        <p>Performans ve kullanım verileri detaylı grafiklerle sunulur.</p>
+      </div>
+      <div class="col-md-4 text-center animate__animated animate__fadeInUp animate__delay-1-5s">
+        <i class="bi bi-wifi-off display-1 text-primary mb-3"></i>
+        <h4>Çevrimdışı Çalışma</h4>
+        <p>İnternet bağlantısı olmasa bile uygulamayı kullanmaya devam edin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="new-feature-notification" class="d-flex align-items-center">
+    <i class="bi bi-stars me-2"></i>
+    <span>Yeni Özellik: Çevrimdışı Mod Eklendi!</span>
+</div>
+
+<section id="testimonials" class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 animate__animated animate__fadeIn">Kullanıcı Yorumları</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4 animate__animated animate__fadeInUp">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <p class="card-text">“Uygulama gerçekten hayatımı kolaylaştırdı. Kesinlikle tavsiye ederim!”</p>
+            <h6 class="card-subtitle text-muted">- Ayşe Yılmaz</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-0-5s">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <p class="card-text">“Güvenli ve hızlı, tam ihtiyacım olan uygulama.”</p>
+            <h6 class="card-subtitle text-muted">- Mehmet Can</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <p class="card-text">“Arayüz çok sade ve kullanışlı, herkese öneriyorum.”</p>
+            <h6 class="card-subtitle text-muted">- Elif Demir</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 animate__animated animate__fadeIn">Fiyat Planları</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-3 animate__animated animate__fadeInLeft">
+        <div class="card h-100 text-center border-primary">
+          <div class="card-header bg-primary text-white">
+            Başlangıç
+          </div>
+          <div class="card-body">
+            <h3 class="card-title pricing-card-title">₺0 <small class="text-muted fw-light">/ ay</small></h3>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Temel özellikler</li>
+              <li>5 kullanıcı</li>
+              <li>7/24 destek</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Kaydol</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 animate__animated animate__fadeInUp animate__delay-0-5s">
+        <div class="card h-100 text-center border-success">
+          <div class="card-header bg-success text-white">
+            Profesyonel
+          </div>
+          <div class="card-body">
+            <h3 class="card-title pricing-card-title">₺49 <small class="text-muted fw-light">/ ay</small></h3>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Tüm temel özellikler</li>
+              <li>50 kullanıcı</li>
+              <li>Öncelikli destek</li>
+            </ul>
+            <a href="#" class="btn btn-success">Kaydol</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 animate__animated animate__fadeInRight animate__delay-1s">
+        <div class="card h-100 text-center border-warning">
+          <div class="card-header bg-warning text-dark">
+            Kurumsal
+          </div>
+          <div class="card-body">
+            <h3 class="card-title pricing-card-title">₺99 <small class="text-muted fw-light">/ ay</small></h3>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Tüm profesyonel özellikler</li>
+              <li>Sınırsız kullanıcı</li>
+              <li>7/24 özel destek</li>
+            </ul>
+            <a href="#" class="btn btn-warning text-dark">Kaydol</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-dark text-white text-center py-3">
+  &copy; 2025 Mobil Uygulama. Tüm hakları saklıdır.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> <script>
+    new WOW().init(); // WOW.js'i başlat
+</script>
+
+<script>
+  const hero = document.querySelector('.hero');
+const images = [
+    'https://plus.unsplash.com/premium_photo-1738809927018-34ba85992e8c?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://plus.unsplash.com/premium_photo-1732096682381-b580213f885f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://plus.unsplash.com/premium_photo-1739467747404-bce83a7a9349?q=80&w=996&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://plus.unsplash.com/premium_photo-1669323925693-b27e909a670d?q=80&w=780&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://plus.unsplash.com/premium_photo-1752113495781-8b7dbc1750a0?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+];
+let index = 0;
+const slideInterval = 5000; // Saniye cinsinden geçiş süresi (5 saniye)
+let intervalId; // setInterval ID'sini tutmak için
+
+// Dinamik olarak slider kontrolleri ekleme
+const createSliderControls = () => {
+    const container = document.createElement('div');
+    container.classList.add('slider-controls', 'position-absolute', 'bottom-0', 'start-50', 'translate-middle-x', 'mb-3', 'd-flex', 'align-items-center', 'justify-content-center');
+    container.style.zIndex = '3'; // İçeriğin ve overlay'in üzerinde
+
+    // Sol Ok Butonu
+    const prevBtn = document.createElement('button');
+    prevBtn.classList.add('btn', 'btn-outline-light', 'rounded-circle', 'mx-2');
+    prevBtn.innerHTML = '<i class="bi bi-chevron-left"></i>';
+    prevBtn.onclick = () => changeSlide(-1);
+    container.appendChild(prevBtn);
+
+    // Nokta İndikatörleri
+    const dotsContainer = document.createElement('div');
+    dotsContainer.classList.add('d-flex');
+    images.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.classList.add('dot', 'btn', 'btn-outline-light', 'rounded-circle', 'mx-1');
+        dot.style.width = '12px';
+        dot.style.height = '12px';
+        dot.style.padding = '0';
+        dot.style.opacity = '0.6';
+        dot.onclick = () => goToSlide(idx);
+        dotsContainer.appendChild(dot);
+    });
+    container.appendChild(dotsContainer);
+
+    // Sağ Ok Butonu
+    const nextBtn = document.createElement('button');
+    nextBtn.classList.add('btn', 'btn-outline-light', 'rounded-circle', 'mx-2');
+    nextBtn.innerHTML = '<i class="bi bi-chevron-right"></i>';
+    nextBtn.onclick = () => changeSlide(1);
+    container.appendChild(nextBtn);
+
+    // İlerleme Çubuğu
+    const progressBarContainer = document.createElement('div');
+    progressBarContainer.classList.add('position-absolute', 'bottom-0', 'start-0', 'w-100');
+    progressBarContainer.style.height = '5px';
+    progressBarContainer.style.backgroundColor = 'rgba(255,255,255,0.2)';
+    progressBarContainer.style.zIndex = '3';
+
+    const progressBar = document.createElement('div');
+    progressBar.id = 'progress-bar';
+    progressBar.style.width = '0%';
+    progressBar.style.height = '100%';
+    progressBar.style.backgroundColor = '#0d6efd'; // Bootstrap primary color
+    progressBar.style.transition = 'width 5s linear'; // Slayt geçiş süresiyle aynı
+
+    progressBarContainer.appendChild(progressBar);
+
+    hero.appendChild(container);
+    hero.appendChild(progressBarContainer);
+};
+
+// Slayt değiştirme fonksiyonu
+const updateSlider = () => {
+    // Önceki arka planı gizle
+    hero.style.opacity = 0; // Geçiş efekti için
+
+    // Yeni arka planı ayarla
+    setTimeout(() => {
+        hero.style.backgroundImage = `url('${images[index]}')`;
+        hero.style.opacity = 1; // Yeni arka planı göster
+    }, 50); // Kısa bir gecikme ile opacity değişimi
+
+    // Nokta indikatörlerini güncelle
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+        if (idx === index) {
+            dot.classList.add('bg-light');
+            dot.style.opacity = '1';
+        } else {
+            dot.classList.remove('bg-light');
+            dot.style.opacity = '0.6';
+        }
+    });
+
+    // İlerleme çubuğunu sıfırla ve yeniden başlat
+    const progressBar = document.getElementById('progress-bar');
+    if (progressBar) {
+        progressBar.style.transition = 'none'; // Geçişi sıfırla
+        progressBar.style.width = '0%';
+        // Küçük bir gecikme ile geçişi tekrar etkinleştir
+        setTimeout(() => {
+            progressBar.style.transition = `width ${slideInterval / 1000}s linear`;
+            progressBar.style.width = '100%';
+        }, 50);
+    }
+};
+
+// Slaytları otomatik değiştirme
+const startSlider = () => {
+    clearInterval(intervalId); // Önceki interval'i temizle
+    intervalId = setInterval(() => {
+        index = (index + 1) % images.length;
+        updateSlider();
+    }, slideInterval);
+};
+
+// Manuel slayt değiştirme (ileri/geri)
+const changeSlide = (direction) => {
+    index = (index + direction + images.length) % images.length;
+    updateSlider();
+    startSlider(); // Manuel değişimden sonra otomatik değişimi sıfırla
+};
+
+// Belirli bir slayta gitme
+const goToSlide = (slideIndex) => {
+    index = slideIndex;
+    updateSlider();
+    startSlider(); // Manuel değişimden sonra otomatik değişimi sıfırla
+};
+
+// Yeni Özellik Bildirimini Gösterme (CSS animasyonu ile)
+const showNewFeatureNotification = () => {
+    const notification = document.getElementById('new-feature-notification');
+    if (notification) {
+        notification.style.opacity = 1;
+        notification.style.transform = 'translateY(0)';
+        // Bildirimi 5 saniye sonra gizle
+        setTimeout(() => {
+            notification.style.opacity = 0;
+            notification.style.transform = 'translateY(100px)';
+        }, 7000);
+    }
+};
+
+// Sayfa yüklendiğinde başlat
+document.addEventListener('DOMContentLoaded', () => {
+    createSliderControls(); // Slider kontrollerini oluştur
+    updateSlider(); // İlk slaytı göster
+    startSlider(); // Otomatik slayt değişimini başlat
+    showNewFeatureNotification(); // Yeni özellik bildirimini göster
+});
+</script>
+
+</body>
+</html>
